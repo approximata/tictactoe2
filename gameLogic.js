@@ -1,7 +1,7 @@
 'use strict'
 
 
-export default function game(){
+export default function gameLogic(){
 
   function setElement(table, item) {
     table[item.x][item.y] = item.type
@@ -17,10 +17,10 @@ export default function game(){
   }
 
   function isLineWin(line) {
-    return line.every(item => item === line[0])
+    return line.every(item => item === line[0] && line[0] !== '' )
   }
 
-  function isRowWin(table) {
+  function isAnyRowWin(table) {
     return table.some(row => isLineWin(row))
   }
 
@@ -37,11 +37,33 @@ export default function game(){
     return columns;
   }
 
+  function isAnyColumnWin(table){
+    let rotateTable = transposeTable(table)
+    return isAnyRowWin(rotateTable)
+  }
+
+  function getDiagonals(table){
+    let diagonals = [[],[]]
+    const len = table.length
+      for (var i = 0; i < len; i++) {
+        diagonals[0].push(table[i][i])
+        diagonals[1].push(table[len-1-i][i])
+      }
+      return diagonals
+  }
+
+  function isAnyDiagonalWin(table) {
+    let diagonals = getDiagonals(table)
+    return isAnyRowWin(diagonals)
+  }
+
   return Object.freeze({
     setElement,
     isEmptyPlace,
     isAnyEmptyPlace,
     isLineWin,
-    isRowWin
+    isAnyRowWin,
+    isAnyColumnWin,
+    isAnyDiagonalWin
   })
 }

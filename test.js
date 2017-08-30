@@ -1,26 +1,20 @@
 'use strict'
 
-// function isAnyEmptyPlace(table) {
-//   let arr = []
-//   table.forEach((row) => {
-//     arr.push(...row)
-//   })
-//   return arr.some(item => item === '')
-// }
-
-function isAnyEmptyPlace(table) {
-  // let arr = []
-  // table.forEach((row) => {
-  //   arr.push(...row)
-  // })
-  return table.some(row => (row.some(item => item === '')))
+function getDiagonals(table){
+  let diagonals = [[],[]]
+  const len = table.length
+    for (var i = 0; i < len; i++) {
+      diagonals[0].push(table[i][i])
+      diagonals[1].push(table[len-1-i][i])
+    }
+    return diagonals
 }
 
 
 let gameTable = [
-  ['','x',''],
-  ['','','x'],
-  ['x','',''],
+  ['1','x','o'],
+  ['','x','x'],
+  ['1','','2'],
 ]
 
-console.log(isAnyEmptyPlace(gameTable))
+console.log(getDiagonals(gameTable))
