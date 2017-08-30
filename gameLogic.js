@@ -57,6 +57,14 @@ export default function gameLogic(){
     return isAnyRowWin(diagonals)
   }
 
+  function isWon(table){
+    return isAnyRowWin(table) || isAnyColumnWin || isAnyDiagonalWin
+  }
+
+  function isGameOver(table){
+    return isWon(table) || !isAnyEmptyPlace(table)
+  }
+
   return Object.freeze({
     setElement,
     isEmptyPlace,
@@ -64,6 +72,8 @@ export default function gameLogic(){
     isLineWin,
     isAnyRowWin,
     isAnyColumnWin,
-    isAnyDiagonalWin
+    isAnyDiagonalWin,
+    isWon,
+    isGameOver
   })
 }
